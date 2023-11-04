@@ -6,6 +6,7 @@
     stroke-dasharray: 1937.961669921875;
     stroke-dashoffset: 1937.961669921875;
     animation: draw 3s ease-in-out forwards;
+    animation-delay: 0.5s;
 }
 
 @keyframes draw {
@@ -15,39 +16,41 @@
 }
 
 .fromBottom {
-    animation: fromBottom ease 2s;
+    opacity: 0;
+    transform: translateY(100px);
+    animation: fromBottom ease 2s forwards;
+    animation-delay: 0.5s;
 }
 
 .fromTop {
+    opacity: 0;
+    transform: translateY(-100px);
     animation: fromTop ease 2s;
 }
 
 .fromRight {
+    opacity: 0;
+    transform: translateX(100px);
     animation: fromRight ease 2s;
 }
 
 .fromLeft {
+    opacity: 0;
+    transform: translateX(-100px);
     animation: fromLeft ease 2s;
 }
 
 @keyframes fromBottom {
-    0% {
-        opacity: 0;
-        transform: translateY(100px);
-    }
     25% {
         transform: translateY(0);
     }
     100% {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @keyframes fromTop {
-    0% {
-        opacity: 0;
-        transform: translateY(-100px);
-    }
     25% {
         transform: translateY(0);
     }
@@ -57,40 +60,21 @@
 }
 
 @keyframes fromRight {
-    0% {
-        opacity: 0;
-        transform: translateX(100px);
-    }
     25% {
         transform: translateX(0);
     }
     100% {
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
 @keyframes fromLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
     25% {
         transform: translateX(0);
     }
     100% {
         opacity: 1;
-    }
-}
-
-@keyframes fromBottom {
-    0% {
-        opacity: 0;
-        transform: translateY(100px);
-    }
-    25% {
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 1;
+        transform: translateX(0);
     }
 }

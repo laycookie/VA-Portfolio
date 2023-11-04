@@ -1,3 +1,5 @@
+"use client";
+
 import {Preahvihear, Indie_Flower} from 'next/font/google'
 import {
     Accordion,
@@ -6,6 +8,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import Image from "next/image";
+import {useState} from "react";
 
 const preahvihear = Preahvihear({
     subsets: ['latin'],
@@ -18,13 +21,17 @@ const indieFlower = Indie_Flower({
 
 type Props = {}
 
+type QuestionType = "about my voice" | "about me personally";
 type QuestionAndAnswer = {
-    type: "about my voice" | "about me personally";
+    type: QuestionType;
     question: string;
     answer: string;
 }
 
 export default function Page({}: Props) {
+    const [filteredQuestions, setFilteredQuestions] =
+        useState<null | QuestionType>(null)
+
     const questionsAndAnswers: QuestionAndAnswer[] = [
         {
             type: "about my voice",
@@ -43,7 +50,12 @@ export default function Page({}: Props) {
             <h1 className="w-full text-center text-6xl mt-[10dvh]">Q&A</h1>
             <div className="flex mx-auto container text-2xl">
                 <div className="w-full flex flex-col space-y-2">
-                    <button className="mx-auto">
+                    <button className="mx-auto"
+                            onClick={() => {
+                                filteredQuestions === "about my voice" ?
+                                    setFilteredQuestions(null) :
+                                    setFilteredQuestions("about my voice");
+                            }}>
                         <div className="
                         h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
@@ -57,7 +69,12 @@ export default function Page({}: Props) {
                     <h2 className="mx-auto">About my voice</h2>
                 </div>
                 <div className="w-full flex flex-col space-y-2">
-                    <button className="mx-auto">
+                    <button className="mx-auto"
+                    onClick={() => {
+                        filteredQuestions === "about me personally" ?
+                            setFilteredQuestions(null) :
+                            setFilteredQuestions("about me personally");
+                    }}>
                         <div className="
                         h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
@@ -73,7 +90,9 @@ export default function Page({}: Props) {
             </div>
 
             <Accordion type="single" className="space-y-8 mt-8" collapsible>
-                {questionsAndAnswers.map((qa, index) => (
+                {questionsAndAnswers
+                    .filter(qa => filteredQuestions === null || qa.type === filteredQuestions)
+                    .map((qa, index) => (
                     <div
                         className={
                             `${qa.type === "about my voice" ?

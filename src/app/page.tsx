@@ -27,7 +27,7 @@ export default function Home() {
                         >{"Hello my name is ___ and I'm a voice actress."}</h1>
                     </div>
                     <Image src={"/Koto_Katakura.webp"} alt={"VA anime girl"}
-                           className={"-z-10 h-[768px] w-auto fromRight"}
+                           className={"-z-10 h-[768px] w-auto"}
                            width={500}
                            height={500}
                     priority={true}
