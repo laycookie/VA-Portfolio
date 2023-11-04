@@ -24,7 +24,7 @@ export default function Home() {
                            height={500}/>
                 </div>
             </section>
-            <section>
+            <section className="bg-gradient-to-r from-bublegum to-bublegum-grad-shift">
                 <h1>Clips</h1>
                 <div className="flex">
                     <div>
@@ -36,7 +36,7 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <section>
+            <section className="bg-gradient-to-l from-watermelon to-watermelon-grad-shift">
                 <h1>Clips</h1>
                 <div className="flex">
                     <div>
