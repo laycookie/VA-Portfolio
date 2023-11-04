@@ -1,16 +1,19 @@
-import {Preahvihear} from 'next/font/google'
+import {Preahvihear, Indie_Flower} from 'next/font/google'
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import DropDownArrow from "@/components/DropDownArrow";
+import Image from "next/image";
 
 const preahvihear = Preahvihear({
     subsets: ['latin'],
     weight: ["400"],
-
+})
+const indieFlower = Indie_Flower({
+    subsets: ['latin'],
+    weight: ["400"],
 })
 
 type Props = {}
@@ -43,7 +46,13 @@ export default function Page({}: Props) {
                     <button className="mx-auto">
                         <div className="
                         h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift rounded-xl
-                        shadow-md hover:shadow-xl transition-shadow"/>
+                        shadow-md hover:shadow-xl transition-shadow">
+                            <Image src={"/VoiceImg.png"} alt={"About me"}
+                                   width={128}
+                                   height={128}
+                                   className="scale-[0.45] -translate-y-5"
+                            />
+                        </div>
                     </button>
                     <h2 className="mx-auto">About my voice</h2>
                 </div>
@@ -51,35 +60,40 @@ export default function Page({}: Props) {
                     <button className="mx-auto">
                         <div className="
                         h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift rounded-xl
-                        shadow-md hover:shadow-xl transition-shadow"/>
+                        shadow-md hover:shadow-xl transition-shadow">
+                            <Image src={"/AboutImg.png"} alt={"About me"}
+                                   width={128}
+                                   height={128}
+                                   className="scale-50 -translate-y-3"
+                            />
+                        </div>
                     </button>
                     <h2 className="mx-auto">About me personall</h2>
                 </div>
             </div>
-            <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                    <AccordionContent>
-                        Yes. It adheres to the WAI-ARIA design pattern.
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
-            <div className="space-y-8 mt-8">
+
+            <Accordion type="single" className="space-y-8 mt-8" collapsible>
                 {questionsAndAnswers.map((qa, index) => (
-                    <div key={index} className={
-                        `${qa.type === "about my voice" ?
-                            "bg-gradient-to-r from-bublegum to-bublegum-grad-shift" :
-                            "bg-gradient-to-l from-watermelon to-watermelon-grad-shift"} rounded-2xl p-4`
-                    }>
-                        <button className={"w-full flex justify-between"}>
-                            <h3 className={"text-2xl font-bold"}>{qa.question}</h3>
-                            <DropDownArrow/>
-                        </button>
-                        <div className={"mb-2 h-1 w-full bg-black"}/>
-                        <p>{qa.answer}</p>
+                    <div
+                        className={
+                            `${qa.type === "about my voice" ?
+                                "bg-gradient-to-r from-bublegum to-bublegum-grad-shift" :
+                                "bg-gradient-to-l from-watermelon to-watermelon-grad-shift"} rounded-2xl p-4
+                                       border-black border-2 shadow-md hover:shadow-xl transition-shadow`}
+                        key={index}>
+                        <AccordionItem value={`item-${index}`} className="border-black border-b-2">
+                            <AccordionTrigger
+                                className="text-2xl font-bold">{qa.question}</AccordionTrigger>
+                            <AccordionContent
+                                className={`text-xl ${indieFlower.className}`}>
+                                {qa.answer}
+                            </AccordionContent>
+                        </AccordionItem>
                     </div>
+
                 ))}
-            </div>
+            </Accordion>
+
         </main>
     );
 }

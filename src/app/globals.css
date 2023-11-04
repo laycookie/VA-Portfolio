@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --card: #1a202c;
+    --card-hover: #2d3748;
+}
