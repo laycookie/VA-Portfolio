@@ -59,7 +59,7 @@ export default function Page({}: Props) {
                         <div className="
                         h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
-                            <Image src={"/VoiceImg.png"} alt={"About me"}
+                            <Image src={"/voiceImg.png"} alt={"About me"}
                                    width={128}
                                    height={128}
                                    className="scale-[0.45] -translate-y-5"
@@ -78,7 +78,7 @@ export default function Page({}: Props) {
                         <div className="
                         h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
-                            <Image src={"/AboutImg.png"} alt={"About me"}
+                            <Image src={"/aboutImg.png"} alt={"About me"}
                                    width={128}
                                    height={128}
                                    className="scale-50 -translate-y-3"

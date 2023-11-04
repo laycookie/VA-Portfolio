@@ -28,8 +28,8 @@ export default function Home() {
                     </div>
                     <Image src={"/Koto_Katakura.webp"} alt={"VA anime girl"}
                            className={"-z-10 h-[768px] w-auto"}
-                           width={500}
-                           height={500}
+                           width={1725.330}
+                           height={768}
                     priority={true}
                     />
                 </div>
