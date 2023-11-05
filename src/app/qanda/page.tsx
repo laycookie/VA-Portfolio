@@ -1,6 +1,6 @@
 "use client";
 
-import {Preahvihear, Indie_Flower} from 'next/font/google'
+import {Preahvihear, Caveat} from 'next/font/google'
 import {
     Accordion,
     AccordionContent,
@@ -14,7 +14,7 @@ const preahvihear = Preahvihear({
     subsets: ['latin'],
     weight: ["400"],
 })
-const indieFlower = Indie_Flower({
+const caveat = Caveat({
     subsets: ['latin'],
     weight: ["400"],
 })
@@ -41,7 +41,7 @@ export default function Page({}: Props) {
         {
           type: "professional",
           question: "Где ты озвучиваешь?",
-            answer: "Команда MoonWalkers. Ссылка на их сайт: https://t.me/MoonWalkers_MW",
+            answer: "Команда (MoonWalkers)[https://t.me/MoonWalkers_MW]",
         },
         {
             type: "professional",
@@ -134,7 +134,7 @@ export default function Page({}: Props) {
                             <AccordionTrigger
                                 className="text-2xl font-bold">{qa.question}</AccordionTrigger>
                             <AccordionContent
-                                className={`text-xl ${indieFlower.className}`}>
+                                className={`text-2xl ${caveat.className}`}>
                                 {qa.answer}
                             </AccordionContent>
                         </AccordionItem>
