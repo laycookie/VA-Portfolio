@@ -21,7 +21,7 @@ const indieFlower = Indie_Flower({
 
 type Props = {}
 
-type QuestionType = "about my voice" | "about me personally";
+type QuestionType = "about me" | "professional";
 type QuestionAndAnswer = {
     type: QuestionType;
     question: string;
@@ -34,14 +34,44 @@ export default function Page({}: Props) {
 
     const questionsAndAnswers: QuestionAndAnswer[] = [
         {
-            type: "about my voice",
-            question: "Why is my voice so high pitched?",
-            answer: "I don't know, I was born with it.",
+            type: "about me",
+            question: "Что у тебя с голосом?",
+            answer: "Чаще всего этот вопрос возникает, когда меня слышат сонной, больной или после работы с лоли. От природы у меня относительно высокий голос. В совокупности с речевой позицией это может звучать специфически. Поэтому советую принять это как данность.",
         },
         {
-            type: "about me personally",
-            question: "What is your favorite color?",
-            answer: "Mint",
+          type: "professional",
+          question: "Где ты озвучиваешь?",
+            answer: "Команда MoonWalkers. Ссылка на их сайт: https://t.me/MoonWalkers_MW",
+        },
+        {
+            type: "professional",
+            question: "Какой у тебя микрофон?",
+            answer: "На данный момент у меня XLR микрофон Alctron MC410 в связке со звуковой картой Behringer U-PHORIA UMC204HD.",
+        },
+        {
+            type: "professional",
+            question: "Могу ли я (т.е. вы) начать озвучивать?",
+            answer: "Наверное. Важно понимать, что постановка голоса и озвучка - очень кропотливое и время затратное дело. Если у вас есть дефекты речи, которые нельзя никак исправить,увы и ах : озвучка не для вас. А всё остальное можно развить и натренировать!)",
+        },
+        {
+            type: "about me",
+            question: "Есть ли у тебя парень/муж?",
+            answer: "Да, я замужем :3",
+        },
+        {
+            type: "professional",
+            question: "Скажи....(то-то: то-то).",
+            answer: "Только за символическую плату ;3",
+        },
+        {
+            type: "about me",
+            question: "Какой у тебя любимый цвет?",
+            answer: "Мятный",
+        },
+        {
+            type: "professional",
+            question: "Сколько ты занимаешься голосом/озвучкой?",
+            answer: "Постановкой голоса занимаюсь с декабря двадцать первого года. Озвучивать начала с октября двадцать второго года.",
         }
     ]
 
@@ -52,9 +82,9 @@ export default function Page({}: Props) {
                 <div className="w-full flex flex-col space-y-2">
                     <button className="mx-auto"
                             onClick={() => {
-                                filteredQuestions === "about my voice" ?
+                                filteredQuestions === "about me" ?
                                     setFilteredQuestions(null) :
-                                    setFilteredQuestions("about my voice");
+                                    setFilteredQuestions("about me");
                             }}>
                         <div className="
                         h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift rounded-xl
@@ -66,14 +96,14 @@ export default function Page({}: Props) {
                             />
                         </div>
                     </button>
-                    <h2 className="mx-auto">About my voice</h2>
+                    <h2 className="mx-auto">About me</h2>
                 </div>
                 <div className="w-full flex flex-col space-y-2">
                     <button className="mx-auto"
                     onClick={() => {
-                        filteredQuestions === "about me personally" ?
+                        filteredQuestions === "professional" ?
                             setFilteredQuestions(null) :
-                            setFilteredQuestions("about me personally");
+                            setFilteredQuestions("professional");
                     }}>
                         <div className="
                         h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift rounded-xl
@@ -85,17 +115,17 @@ export default function Page({}: Props) {
                             />
                         </div>
                     </button>
-                    <h2 className="mx-auto">About me personall</h2>
+                    <h2 className="mx-auto">Professional</h2>
                 </div>
             </div>
 
-            <Accordion type="single" className="space-y-8 mt-8" collapsible>
+            <Accordion type="single" className="space-y-8 my-8" collapsible>
                 {questionsAndAnswers
                     .filter(qa => filteredQuestions === null || qa.type === filteredQuestions)
                     .map((qa, index) => (
                     <div
                         className={
-                            `${qa.type === "about my voice" ?
+                            `${qa.type === "about me" ?
                                 "bg-gradient-to-r from-bublegum to-bublegum-grad-shift" :
                                 "bg-gradient-to-l from-watermelon to-watermelon-grad-shift"} rounded-2xl p-4
                                        border-black border-2 shadow-md hover:shadow-xl transition-shadow`}
