@@ -7,6 +7,15 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Portfolio',
   description: 'Portfolio of a russian voice actress',
+  openGraph: {
+    title: 'Portfolio',
+    description: 'Portfolio of a russian voice actress',
+    images: [
+
+        ],
+    type: 'website',
+    locale: 'ru_RU',
+  },
 }
 
 export default function RootLayout({
