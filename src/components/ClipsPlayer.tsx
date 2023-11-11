@@ -64,10 +64,17 @@ export function VideoPlayer() {
         function setPlayerDurationInRef(player: HTMLVideoElement, playerIndex: number) {
             const roundedDuration = Math.round(player.duration);
             console.log(roundedDuration)
-            if (mediaDurationRef?.current[playerIndex]) {
-                mediaDurationRef.current[playerIndex](roundedDuration);
+            if (!mediaDurationRef?.current) return
+            if (mediaDurationRef.current[playerIndex]) mediaDurationRef.current[playerIndex](roundedDuration);
+            else {
+                const checks = setInterval(() => {
+                    if (mediaDurationRef.current[playerIndex]) {
+                        mediaDurationRef.current[playerIndex](roundedDuration);
+                        clearInterval(checks)
+                    }
+                }, 1000)
             }
-            console.log(mediaDurationRef?.current)
+
             // remove itself
             player.removeEventListener("loadeddata", () => setPlayerDurationInRef(player, playerIndex))
         }
