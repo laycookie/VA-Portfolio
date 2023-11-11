@@ -60,24 +60,12 @@ export function VideoPlayer() {
         mediaCurrentTimeRef
     } = useContext(CTX);
 
-    // useEffect(() => {
-    //     if (!playersRef) return;
-    //     playersRef.current.forEach((player, index) => {
-    //         const roundedDuration = Math.round(player.duration);
-    //         if (Number.isNaN(roundedDuration)) return;
-    //         if (mediaDurationRef?.current[index]) {
-    //             mediaDurationRef.current[index](roundedDuration);
-    //         }
-    //     })
-    // }, [playersRef]);
-
     useEffect(() => {
         function setPlayerDurationInRef(player: HTMLVideoElement, playerIndex: number) {
             const roundedDuration = Math.round(player.duration);
-            if (mediaDurationRef?.current) {
+            if (mediaDurationRef?.current[playerIndex]) {
                 mediaDurationRef.current[playerIndex](roundedDuration);
             }
-
             player.removeEventListener("loadeddata", () => setPlayerDurationInRef(player, playerIndex))
         }
 
