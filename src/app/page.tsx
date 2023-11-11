@@ -58,7 +58,7 @@ export default function Home() {
                 <div className="container mx-auto">
                     <ClipsPlayer mediaFiles={mediaFiles}>
                         <VideoPlayer/>
-                        <VideoControls bgColor={"watermelon"} textColor={"bublegum-accent"} />
+                        <VideoControls bgColor={"#D0FFCC"} textColor={"#804040"} />
                     </ClipsPlayer>
                 </div>
 
@@ -72,7 +72,7 @@ export default function Home() {
                 <h1 className="mb-8 text-bublegum-accent">Clips</h1>
                 <div className="container mx-auto">
                     <ClipsPlayer mediaFiles={mediaFiles}>
-                        <VideoControls bgColor={"bublegum"} textColor={"watermelon-accent"} />
+                        <VideoControls bgColor={"#FFCBCB"} textColor={"#408067"} />
                         <VideoPlayer/>
                     </ClipsPlayer>
                 </div>

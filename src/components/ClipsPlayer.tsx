@@ -3,7 +3,6 @@
 import {Dispatch, MutableRefObject, ReactNode, SetStateAction, useContext, useEffect, useRef, useState} from "react";
 import {createContext} from "react";
 import styles from "@/components/ClipsPlayer.module.css";
-import {cn} from "@/lib/utils";
 
 type Props = {
     children: ReactNode;
@@ -24,7 +23,6 @@ const CTX = createContext({
         mediaCurrentTimeRef: MutableRefObject<Dispatch<SetStateAction<number>>[]> | null;
     }
 )
-
 
 
 export function ClipsPlayer({children, mediaFiles}: Props) {
@@ -62,34 +60,40 @@ export function VideoPlayer() {
                 mediaDurationRef.current[index](roundedDuration);
             }
         })
-        console.log(playersRef.current)
+
     }, [playersRef]);
 
     return (
         <div className="w-full">
             <div className="w-full aspect-video bg-black rounded-lg">
-            {srcs.map((src, index) =>
-                <video
-                    onTimeUpdate={(e) => {
-                        if (!mediaCurrentTimeRef?.current) return;
-                        const currentTime = e.currentTarget.currentTime;
-                        mediaCurrentTimeRef.current[index](currentTime);
-                    }}
-                    key={crypto.randomUUID()}
-                    src={src}
-                    ref={ref => {
-                        if (!ref || !playersRef) return;
-                        playersRef.current[index] = ref;
-                    }}
-                    className="aspect-video w-full bg-black hidden rounded-lg"
-                />
-            )}
+                {srcs.map((src, index) =>
+                    <video
+                        onLoadedData={(e) => {
+                            const roundedDuration = Math.round(e.currentTarget.duration);
+                            if (mediaDurationRef?.current[index]) {
+                                mediaDurationRef.current[index](roundedDuration);
+                            }
+                        }}
+                        onTimeUpdate={(e) => {
+                            if (!mediaCurrentTimeRef?.current) return;
+                            const currentTime = e.currentTarget.currentTime;
+                            mediaCurrentTimeRef.current[index](currentTime);
+                        }}
+                        key={crypto.randomUUID()}
+                        src={src}
+                        ref={ref => {
+                            if (!ref || !playersRef) return;
+                            playersRef.current[index] = ref;
+                        }}
+                        className="aspect-video w-full bg-black hidden rounded-lg"
+                    />
+                )}
             </div>
         </div>
     );
 }
 
-export function VideoControls({bgColor, textColor}: {bgColor: string, textColor: string}) {
+export function VideoControls({bgColor, textColor}: { bgColor: string, textColor: string }) {
     const {
         srcs,
         playersRef
@@ -101,16 +105,18 @@ export function VideoControls({bgColor, textColor}: {bgColor: string, textColor:
         <div className="w-full space-y-4 flex flex-col justify-center">
             {srcs.map((_, index) => (
                     <div key={crypto.randomUUID()}
-                         className={`inline-block p-2 mx-auto
-                             bg-${bgColor} rounded-xl
-                             text-${textColor}
-                             border-8 border-white`}>
+                         className={`inline-block p-2 mx-auto rounded-xl
+                             border-8 border-white`}
+                         style={{
+                             background: bgColor,
+                             color: textColor
+                         }}>
                         <div className="flex items-center space-x-2">
                             <PlayPauseButton playersRef={playersRef} buttonIndex={index}
                                              setPlayingValues={setPlayingValues}
-                            color={textColor}/>
+                                             color={textColor}/>
                             <DisplayMediaTime index={index} setPlayingValues={setPlayingValues}
-                            color={textColor}/>
+                                              color={textColor}/>
                         </div>
                     </div>
                 )
@@ -164,12 +170,12 @@ function PlayPauseButton({buttonIndex, playersRef, setPlayingValues, color}:
         >
             {isPlaying ?
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                     className={cn(`fill-${color}`)}>
+                     style={{fill: color}}>
                     <rect x="4" y="3" width="6" height="18" rx="2"/>
                     <rect x="14" y="3" width="6" height="18" rx="2"/>
                 </svg> :
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                     className={cn(`fill-${color}`)}>
+                     style={{fill: color}}>
                     <path
                         d="M19.6432 12.848C20.2699 12.4563 20.2699 11.5437 19.6432 11.152L6.53 2.95625C5.86395 2.53997 5 3.01881 5 3.80425V20.1958C5 20.9812 5.86395 21.46 6.53 21.0438L19.6432 12.848Z"/>
                 </svg>
@@ -206,7 +212,8 @@ function DisplayMediaTime({index, setPlayingValues, color}: {
         <>
             <input
                 type={"range"}
-                className={cn(`bg-${color} ${styles.rangeInput}`)}
+                className={styles.rangeInput}
+                style={{background: color}}
                 min={0}
                 max={mediaDuration * secondsMultiplier}
                 value={mediaCurrentTime * secondsMultiplier}
