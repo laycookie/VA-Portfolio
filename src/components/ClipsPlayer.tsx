@@ -67,6 +67,9 @@ export function VideoPlayer() {
             if (mediaDurationRef?.current[playerIndex]) {
                 mediaDurationRef.current[playerIndex](roundedDuration);
             }
+            console.log(mediaDurationRef?.current)
+            // remove itself
+            player.removeEventListener("loadeddata", () => setPlayerDurationInRef(player, playerIndex))
         }
 
         if (!playersRef) return;
