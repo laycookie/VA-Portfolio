@@ -63,6 +63,7 @@ export function VideoPlayer() {
     useEffect(() => {
         function setPlayerDurationInRef(player: HTMLVideoElement, playerIndex: number) {
             const roundedDuration = Math.round(player.duration);
+            console.log(roundedDuration)
             if (mediaDurationRef?.current[playerIndex]) {
                 mediaDurationRef.current[playerIndex](roundedDuration);
             }
@@ -70,7 +71,7 @@ export function VideoPlayer() {
 
         if (!playersRef) return;
         playersRef.current.forEach((player, index) => {
-            if (player.readyState >= 4) {
+            if (player.readyState >= 2) {
                 setPlayerDurationInRef(player, index)
             } else {
                 console.log("not ready")
