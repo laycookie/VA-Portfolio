@@ -1,4 +1,5 @@
 "use client";
+
 import {
     Accordion,
     AccordionContent,
@@ -38,9 +39,9 @@ export default function Page({}: Props) {
             answer: "Чаще всего этот вопрос возникает, когда меня слышат сонной, больной или после работы с лоли. От природы у меня относительно высокий голос. В совокупности с речевой позицией это может звучать специфически. Поэтому советую принять это как данность.",
         },
         {
-            type: "professional",
-            question: "Где ты озвучиваешь?",
-            answer: "Команда (MoonWalkers)[https://t.me/MoonWalkers_MW].",
+          type: "professional",
+          question: "Где ты озвучиваешь?",
+            answer: "Команда (MoonWalkers)[https://t.me/MoonWalkers_MW]",
         },
         {
             type: "professional",
@@ -175,7 +176,7 @@ export default function Page({}: Props) {
                                 </AccordionItem>
                             </div> : null
 
-                    ))}
+                ))}
             </Accordion>
 
         </main>
