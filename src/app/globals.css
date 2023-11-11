@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-    @apply text-4xl font-bold text-center;
+    @apply text-6xl font-bold text-center;
 }
 
 #signature {

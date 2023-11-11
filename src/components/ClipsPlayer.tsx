@@ -1,6 +1,15 @@
 "use client"
 
-import {Dispatch, MutableRefObject, ReactNode, SetStateAction, useContext, useEffect, useRef, useState} from "react";
+import {
+    Dispatch,
+    MutableRefObject,
+    ReactNode,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from "react";
 import {createContext} from "react";
 import styles from "@/components/ClipsPlayer.module.css";
 
@@ -51,16 +60,39 @@ export function VideoPlayer() {
         mediaCurrentTimeRef
     } = useContext(CTX);
 
+    // useEffect(() => {
+    //     if (!playersRef) return;
+    //     playersRef.current.forEach((player, index) => {
+    //         const roundedDuration = Math.round(player.duration);
+    //         if (Number.isNaN(roundedDuration)) return;
+    //         if (mediaDurationRef?.current[index]) {
+    //             mediaDurationRef.current[index](roundedDuration);
+    //         }
+    //     })
+    // }, [playersRef]);
+
     useEffect(() => {
+        function onLoadedData() {
+            console.log("loadeddata")
+        }
+
         if (!playersRef) return;
         playersRef.current.forEach((player, index) => {
-            const roundedDuration = Math.round(player.duration);
-            if (Number.isNaN(roundedDuration)) return;
-            if (mediaDurationRef?.current[index]) {
-                mediaDurationRef.current[index](roundedDuration);
+            if (player.readyState >= 2) {
+                const roundedDuration = Math.round(player.duration);
+                if (mediaDurationRef?.current[index]) {
+                    mediaDurationRef.current[index](roundedDuration);
+                }
+            } else {
+                console.log("not ready")
+                player.addEventListener("loadeddata", onLoadedData)
             }
         })
-
+        return () => {
+            playersRef.current.forEach((player) => {
+                player.removeEventListener("loadeddata", onLoadedData)
+            })
+        }
     }, [playersRef]);
 
     return (
@@ -73,6 +105,9 @@ export function VideoPlayer() {
                             if (mediaDurationRef?.current[index]) {
                                 mediaDurationRef.current[index](roundedDuration);
                             }
+                        }}
+                        onLoad={() => {
+                            console.log("test")
                         }}
                         onTimeUpdate={(e) => {
                             if (!mediaCurrentTimeRef?.current) return;
