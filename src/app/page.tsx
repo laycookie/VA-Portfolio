@@ -54,7 +54,7 @@ export default function Home() {
             </svg>
             {/* Examples */}
             <section className="bg-bublegum">
-                <h1 className="mb-8 text-watermelon-accent">Clips</h1>
+                <h1 className="mb-16 text-watermelon-accent text-5xl">Clips</h1>
                 <div className="container mx-auto">
                     <ClipsPlayer mediaFiles={mediaFiles}>
                         <VideoPlayer/>
@@ -69,7 +69,7 @@ export default function Home() {
                       data-darkreader-inline-fill=""></path>
             </svg>
             <section className="bg-watermelon">
-                <h1 className="mb-8 text-bublegum-accent">Clips</h1>
+                <h1 className="mb-16 text-bublegum-accent text-5xl">Clips</h1>
                 <div className="container mx-auto">
                     <ClipsPlayer mediaFiles={mediaFiles}>
                         <VideoControls bgColor={"#FFCBCB"} textColor={"#408067"} />

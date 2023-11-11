@@ -102,26 +102,29 @@ export function VideoControls({bgColor, textColor}: { bgColor: string, textColor
     const setPlayingValues = useRef<Dispatch<SetStateAction<boolean>>[]>([]);
 
     return (
-        <div className="w-full space-y-4 flex flex-col justify-center">
-            {srcs.map((_, index) => (
-                    <div key={crypto.randomUUID()}
-                         className={`inline-block p-2 mx-auto rounded-xl
-                             border-8 border-white`}
-                         style={{
-                             background: bgColor,
-                             color: textColor
-                         }}>
-                        <div className="flex items-center space-x-2">
-                            <PlayPauseButton playersRef={playersRef} buttonIndex={index}
-                                             setPlayingValues={setPlayingValues}
-                                             color={textColor}/>
-                            <DisplayMediaTime index={index} setPlayingValues={setPlayingValues}
-                                              color={textColor}/>
+        <>
+            <div className="w-full flex flex-col justify-center space-y-16">
+                {srcs.map((_, index) => (
+                        <div key={crypto.randomUUID()}
+                             className={`inline-block p-2 mx-auto rounded-xl
+                             border-8 border-white scale-125 lg:scale-150`}
+                             style={{
+                                 background: bgColor,
+                                 color: textColor
+                             }}>
+                            <div className="flex items-center space-x-2">
+                                <PlayPauseButton playersRef={playersRef} buttonIndex={index}
+                                                 setPlayingValues={setPlayingValues}
+                                                 color={textColor}/>
+                                <DisplayMediaTime index={index} setPlayingValues={setPlayingValues}
+                                                  color={textColor}/>
+                            </div>
                         </div>
-                    </div>
-                )
-            )}
-        </div>
+                    )
+                )}
+            </div>
+            <div/>
+        </>
     );
 }
 
