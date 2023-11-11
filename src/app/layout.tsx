@@ -11,8 +11,13 @@ export const metadata: Metadata = {
     title: 'Portfolio',
     description: 'Portfolio of a russian voice actress',
     images: [
-
-        ],
+      {
+        url: "/openGraphImages.jpg",
+        width: 512,
+        height: 512,
+        alt: 'Portfolio Img.',
+      }
+    ],
     type: 'website',
     locale: 'ru_RU',
   },
