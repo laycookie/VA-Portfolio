@@ -1,6 +1,4 @@
 "use client";
-
-import {Preahvihear, Caveat} from 'next/font/google'
 import {
     Accordion,
     AccordionContent,
@@ -9,6 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 import {useState} from "react";
+import {Preahvihear, Caveat} from 'next/font/google'
 
 const preahvihear = Preahvihear({
     subsets: ['latin'],
@@ -39,9 +38,9 @@ export default function Page({}: Props) {
             answer: "Чаще всего этот вопрос возникает, когда меня слышат сонной, больной или после работы с лоли. От природы у меня относительно высокий голос. В совокупности с речевой позицией это может звучать специфически. Поэтому советую принять это как данность.",
         },
         {
-          type: "professional",
-          question: "Где ты озвучиваешь?",
-            answer: "Команда (MoonWalkers)[https://t.me/MoonWalkers_MW]",
+            type: "professional",
+            question: "Где ты озвучиваешь?",
+            answer: "Команда (MoonWalkers)[https://t.me/MoonWalkers_MW].",
         },
         {
             type: "professional",
@@ -87,7 +86,9 @@ export default function Page({}: Props) {
                                     setFilteredQuestions("about me");
                             }}>
                         <div className="
-                        h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift rounded-xl
+                        h-24 w-24 bg-gradient-to-tl from-bublegum to-bublegum-grad-shift
+                        border-2 border-black
+                        rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
                             <Image src={"/voiceImg.png"} alt={"About me"}
                                    width={128}
@@ -100,13 +101,15 @@ export default function Page({}: Props) {
                 </div>
                 <div className="w-full flex flex-col space-y-2">
                     <button className="mx-auto"
-                    onClick={() => {
-                        filteredQuestions === "professional" ?
-                            setFilteredQuestions(null) :
-                            setFilteredQuestions("professional");
-                    }}>
+                            onClick={() => {
+                                filteredQuestions === "professional" ?
+                                    setFilteredQuestions(null) :
+                                    setFilteredQuestions("professional");
+                            }}>
                         <div className="
-                        h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift rounded-xl
+                        h-24 w-24 bg-gradient-to-tr from-watermelon to-watermelon-grad-shift
+                        border-2 border-black
+                        rounded-xl
                         shadow-md hover:shadow-xl transition-shadow">
                             <Image src={"/aboutImg.png"} alt={"About me"}
                                    width={128}
@@ -121,26 +124,58 @@ export default function Page({}: Props) {
 
             <Accordion type="single" className="space-y-8 my-8" collapsible>
                 {questionsAndAnswers
-                    .filter(qa => filteredQuestions === null || qa.type === filteredQuestions)
                     .map((qa, index) => (
-                    <div
-                        className={
-                            `${qa.type === "about me" ?
-                                "bg-gradient-to-r from-bublegum to-bublegum-grad-shift" :
-                                "bg-gradient-to-l from-watermelon to-watermelon-grad-shift"} rounded-2xl p-4
-                                       border-black border-2 shadow-md hover:shadow-xl transition-shadow`}
-                        key={index}>
-                        <AccordionItem value={`item-${index}`} className="border-black border-b-2">
-                            <AccordionTrigger
-                                className="text-2xl font-bold">{qa.question}</AccordionTrigger>
-                            <AccordionContent
-                                className={`text-2xl ${caveat.className}`}>
-                                {qa.answer}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </div>
+                        filteredQuestions === null || qa.type === filteredQuestions ?
+                            <div
+                                key={"q&aList" + index}
+                                className={
+                                    `${qa.type === "about me" ?
+                                        "bg-gradient-to-r from-bublegum to-bublegum-grad-shift" :
+                                        "bg-gradient-to-l from-watermelon to-watermelon-grad-shift"} rounded-2xl p-4
+                                       border-black border-2 shadow-md hover:shadow-xl transition-shadow`}>
+                                <AccordionItem value={`item-${index}`} className="border-black border-b-2">
+                                    <AccordionTrigger
+                                        className="text-2xl font-bold">{qa.question}</AccordionTrigger>
+                                    <AccordionContent
+                                        className={`text-2xl ${caveat.className}`}>
+                                        {
+                                            (() => {
+                                                // prints text but filters out links styled like this: (linkName)[linkHref]
+                                                let text: (string | JSX.Element)[] = []
+                                                for (let i = 0; i < qa.answer.length; i++) {
+                                                    const char = qa.answer[i];
+                                                    if (char === "(") {
+                                                        let linkName = ""
+                                                        for (let j = i + 1; j < qa.answer.length; j++) {
+                                                            linkName += qa.answer[j];
+                                                            if (qa.answer[j] === ")" && qa.answer[j + 1] === "[") {
+                                                                let linkHref = ""
+                                                                // 2 because we account for ")[" which is 2 chars
+                                                                for (let k = j + 2; k < qa.answer.length; k++) {
+                                                                    linkHref += qa.answer[k];
+                                                                    if (qa.answer[k] === "]") {
+                                                                        text.push(
+                                                                            <a key={"linkIndex" + i}
+                                                                               href={linkHref.slice(0, -1)}
+                                                                               target={"_blank"}
+                                                                               className="hover:underline
+                                                                               text-[rgb(80,80,80)] hover:text-black transition-colors">{linkName.slice(0, -1)}</a>
+                                                                        )
+                                                                        i = k;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    } else text.push(char);
+                                                }
+                                                return <p>{text}</p>;
+                                            })()
+                                        }
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </div> : null
 
-                ))}
+                    ))}
             </Accordion>
 
         </main>

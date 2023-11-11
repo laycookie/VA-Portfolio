@@ -19,8 +19,10 @@ module.exports = {
       colors: {
         "bublegum": "#FFCBCB",
         "bublegum-grad-shift": "#F3C4C4",
+        "bublegum-accent": "#804040",
         "watermelon": "#D0FFCC",
         "watermelon-grad-shift": "#A7E5A2",
+        "watermelon-accent": "#408067",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
