@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Portfolio of a russian voice actress',
     images: [
       {
-        url: "/openGraphImages.jpg",
+        url: "/static/openGraphImg.jpg",
         width: 512,
         height: 512,
         alt: 'Portfolio Img.',
