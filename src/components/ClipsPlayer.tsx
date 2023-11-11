@@ -70,7 +70,7 @@ export function VideoPlayer() {
 
         if (!playersRef) return;
         playersRef.current.forEach((player, index) => {
-            if (player.readyState >= 2) {
+            if (player.readyState >= 4) {
                 setPlayerDurationInRef(player, index)
             } else {
                 console.log("not ready")
