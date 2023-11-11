@@ -19,8 +19,8 @@ export const metadata: Metadata = {
       }
     ],
     type: 'website',
-    locale: 'ru_RU',
   },
+  metadataBase: new URL("https://va-portfolio-sigma.vercel.app/"),
 }
 
 export default function RootLayout({
