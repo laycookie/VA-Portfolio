@@ -78,7 +78,7 @@ export function VideoPlayer() {
                 player.addEventListener("loadeddata", () => setPlayerDurationInRef(player, index))
             }
         })
-    }, [playersRef]);
+    }, [playersRef, mediaDurationRef]);
 
     return (
         <div className="w-full">
