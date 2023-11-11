@@ -72,27 +72,24 @@ export function VideoPlayer() {
     // }, [playersRef]);
 
     useEffect(() => {
-        function onLoadedData() {
-            console.log("loadeddata")
+        function setPlayerDurationInRef(player: HTMLVideoElement, playerIndex: number) {
+            const roundedDuration = Math.round(player.duration);
+            if (mediaDurationRef?.current) {
+                mediaDurationRef.current[playerIndex](roundedDuration);
+            }
+
+            player.removeEventListener("loadeddata", () => setPlayerDurationInRef(player, playerIndex))
         }
 
         if (!playersRef) return;
         playersRef.current.forEach((player, index) => {
             if (player.readyState >= 2) {
-                const roundedDuration = Math.round(player.duration);
-                if (mediaDurationRef?.current[index]) {
-                    mediaDurationRef.current[index](roundedDuration);
-                }
+                setPlayerDurationInRef(player, index)
             } else {
                 console.log("not ready")
-                player.addEventListener("loadeddata", onLoadedData)
+                player.addEventListener("loadeddata", () => setPlayerDurationInRef(player, index))
             }
         })
-        return () => {
-            playersRef.current.forEach((player) => {
-                player.removeEventListener("loadeddata", onLoadedData)
-            })
-        }
     }, [playersRef]);
 
     return (
