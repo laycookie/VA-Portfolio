@@ -23,7 +23,7 @@ export default function Home() {
                 {/* Landing page */}
                 <section className="w-full h-[100vh]">
                     <div className="h-full flex flex-col justify-center">
-                        <div className="flex justify-center">
+                        <div className="flex justify-center overflow-hidden">
                             <div className="my-auto">
                                 <PreattyCircle color={"FFCBCB"}
                                                className={"md:absolute md:flex hidden -z-10 rotate"} id={"circle1"}
