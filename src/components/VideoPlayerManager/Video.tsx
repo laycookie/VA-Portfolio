@@ -10,6 +10,7 @@ function Video({}: Props) {
     const {
         srcs,
         localVideoPlaying,
+        localPlayerPlaying,
         playerIndex,
         setVideoDurations,
         setVideoCurrentTime,
@@ -20,10 +21,11 @@ function Video({}: Props) {
     useEffect(() => {
         for (const i in srcs) {
             if (!videoRefs?.current || !setVideoDurations) return;
-            const videoDuration = videoRefs.current[playerIndex][i].duration;
+            let videoDuration = videoRefs.current[playerIndex][i].duration;
             updateVideosData(Number(i), setVideoDurations, videoDuration);
             // in cases video duration is a NaN check until the metaData has loaded
             const checks = setInterval(() => {
+                videoDuration = videoRefs.current[playerIndex][i].duration;
                 if (!Number.isNaN(videoDuration)) {
                     updateVideosData(Number(i), setVideoDurations, videoDuration)
                     clearInterval(checks)
@@ -38,7 +40,7 @@ function Video({}: Props) {
                 <video
                     className={"aspect-video w-full bg-black rounded-lg"}
                     style={{display: localVideoPlaying === index ? "block" : "none"}}
-                    key={"mediaPlayer" + index}
+                    key={"mediaPlayer" + index + " " + localPlayerPlaying}
                     ref={ref => {
                         if (!ref || videoRefs === null) return
                         if (!videoRefs.current[playerIndex]) videoRefs.current[playerIndex] = [];

@@ -14,6 +14,7 @@ export default function Controls({color, bgColor}: Props) {
     const {
         srcs,
         localVideoPlaying,
+        localPlayerPlaying,
         setLocalVideoPlaying,
         videoDurations,
         videoCurrentTime,
@@ -30,7 +31,7 @@ export default function Controls({color, bgColor}: Props) {
     return (
         <div className="w-full flex flex-col justify-center space-y-16">
             {srcs.map((_, index) => (
-                    <div key={"mediaControls" + index}
+                    <div key={"mediaControls" + index + " " + localPlayerPlaying}
                          className={`inline-block p-2 mx-auto rounded-xl
                              border-8 border-white
                              lg:scale-125 scale-100`}
@@ -47,8 +48,8 @@ export default function Controls({color, bgColor}: Props) {
                                                  isPlaying
                                              }
                                              index={index}/>
-                            <DisplayMediaTime color={color} mediaDuration={videoDurations[index] ?? 0}
-                                              videoCurrentTime={videoCurrentTime[index] ?? 0} index={index}/>
+                            <DisplayMediaTime color={color} mediaDuration={videoDurations[index] || 0}
+                                              videoCurrentTime={videoCurrentTime[index] || 0} index={index}/>
                         </div>
                     </div>
                 )
